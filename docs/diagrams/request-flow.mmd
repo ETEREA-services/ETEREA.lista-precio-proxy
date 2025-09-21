@@ -1,0 +1,15 @@
+sequenceDiagram
+    participant Client as Cliente
+    participant Controller as ArticuloListaPrecioController
+    participant Service as ArticuloListaPrecioService
+    participant Feign as ArticuloListaPrecioClient
+    participant Backend as Servicio Backend
+
+    Client->>Controller: GET /api/lista/precio/articuloListaPrecio/page
+    Controller->>Service: findAllPublicadosPaginated(page, size)
+    Service->>Feign: findAllPublicadosPaginated(page, size)
+    Feign->>Backend: HTTP Request
+    Backend-->>Feign: Response with articulos
+    Feign-->>Service: ArticuloListaPrecioDto[]
+    Service-->>Controller: Page<ArticuloListaPrecioDto>
+    Controller-->>Client: ResponseEntity with HATEOAS links
