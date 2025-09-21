@@ -1,0 +1,11 @@
+stateDiagram-v2
+    [*] --> Starting: Application Start
+    Starting --> Running: Successful Startup
+    Starting --> Failed: Startup Error
+    Running --> Stopping: Shutdown Signal
+    Stopping --> Stopped: Graceful Shutdown
+    Failed --> [*]
+    Stopped --> [*]
+    Running --> Error: Runtime Exception
+    Error --> Running: Recovery
+    Error --> Stopping: Unrecoverable
